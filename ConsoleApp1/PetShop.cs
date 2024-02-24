@@ -8,6 +8,9 @@ public class PetShop
     public PetShop()
     {
         Pet.Budget = 12;
+        Fish.SetMeal();
+        Cat.SetMeal();
+        Dog.SetMeal();
         Menu();
     }
     void ShowMenu(string[] arr, int select)
@@ -31,6 +34,9 @@ public class PetShop
         while (true)
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("                            PetShop");
+            Console.ForegroundColor = ConsoleColor.White;
             ShowMenu(arr, select);
             ConsoleKeyInfo key = Console.ReadKey(true);
             if (key.Key == ConsoleKey.DownArrow)
@@ -58,14 +64,15 @@ public class PetShop
                     pet = "Cat";
                 else if (select == 2)
                     pet = "Dog";
-                else return;
+                else
+                    break;
                 PetMenu();
             }
         }
     }
-
     void Sell()
     {
+        Console.Clear();
         string name;
         Console.WriteLine($"Enter {pet}'s name: ");
         name = Console.ReadLine();
@@ -114,14 +121,13 @@ public class PetShop
                 }
             }
         }
-     
+
         if (!found)
             Console.WriteLine("Animal cannot be found");
         Console.WriteLine("Press Enter to continue...");
         Console.ReadKey(true);
         Console.Clear();
     }
-
     void Add()
     {
         string nickname = "null";
@@ -129,6 +135,7 @@ public class PetShop
         double age;
         double price;
         int energy;
+        Console.Clear();
 
         while (true)
         {
@@ -206,13 +213,12 @@ public class PetShop
             }
         }
     }
-
     void Feed()
     {
+        Console.Clear();
         string name;
         Console.WriteLine($"Enter {pet}'s name: ");
         name = Console.ReadLine();
-
         if (pet == "Fish")
 
             foreach (Fish fish in fishList)
@@ -238,9 +244,9 @@ public class PetShop
                 else Console.WriteLine("Animal can not be found");
 
     }
-
     void Play()
     {
+        Console.Clear();
         string name;
         Console.WriteLine($"Enter {pet}'s name: ");
         name = Console.ReadLine();
@@ -270,10 +276,61 @@ public class PetShop
                 else Console.WriteLine("Animal can not be found");
         Console.ReadKey(true);
     }
+    void Meal()
+    {
+        if (pet == "Fish")
+            Fish.BuyMeal();
+        else if (pet == "Cat")
+            Cat.BuyMeal();
+        else if (pet == "Dog")
+            Dog.BuyMeal();
+    }
+    void ShowAllPet()
+    {
+        Console.Clear();
+        if (pet == "Fish")
+        {
+            int i = 1;
+            foreach (var fish in fishList)
+                Console.WriteLine($"{i++})\n {fish}");
+        }
+
+        else if (pet == "Cat")
+        {
+            int i = 1;
+            foreach (var cat in catList)
+                Console.WriteLine($"{i++})\n {cat}");
+        }
+
+        else if (pet == "Dog")
+        {
+            int i = 1;
+            foreach (var dog in dogList)
+                Console.WriteLine($"{i++})\n {dog}");
+        }
+        Console.ReadKey(true);
+    }
+    void ShowStock()
+    {
+        Console.Clear();
+        if (pet == "Fish")
+            for (int i = 0; i < 3; i++)
+                Console.WriteLine($"{Fish.Meal[i, 0]} => {Fish.Meal[i, 1]}");
+        else if (pet == "Cat")
+            for (int i = 0; i < 3; i++)
+                Console.WriteLine($"{Cat.Meal[i, 0]} => {Cat.Meal[i, 1]}");
+
+        else if (pet == "Dog")
+            for (int i = 0; i < 3; i++)
+                Console.WriteLine($"{Dog.Meal[i, 0]} => {Dog.Meal[i, 1]}");
+
+        Console.ReadKey(true);
+    }
 
     void PetMenu()
     {
-        string[] arr = new string[5] { $" Add {pet}", $" Sell {pet}", $" Feed {pet}", $" Play with {pet}", $" Buy Meal for {pet}" };
+        string[] arr = new string[9] { $" Add {pet}", $" Sell {pet}", $" Feed {pet}", $" Play with {pet}", $" Buy Meal for {pet}"
+            ,$" Show all {pet}" ," Show all Foods",$" Show {pet} count "," Exit"};
         int select = 0;
         while (true)
         {
@@ -283,7 +340,7 @@ public class PetShop
             if (key.Key == ConsoleKey.DownArrow)
             {
                 select++;
-                if (select == 5)
+                if (select == 9)
                     select = 0;
             }
 
@@ -291,7 +348,7 @@ public class PetShop
             {
                 select--;
                 if (select == -1)
-                    select = 4;
+                    select = 8;
             }
 
             else if (key.Key == ConsoleKey.Escape)
@@ -301,15 +358,31 @@ public class PetShop
             {
                 if (select == 0)
                     Add();
-
                 else if (select == 1)
                     Sell();
-
                 else if (select == 2)
                     Feed();
-
                 else if (select == 3)
                     Play();
+                else if (select == 4)
+                    Meal();
+                else if (select == 5)
+                    ShowAllPet();
+                else if (select == 6)
+                    ShowStock();
+                else if (select == 7)
+                {
+                    Console.Clear();
+                    Console.Write($"{pet} count: ");
+                    if (pet == "Fish")
+                        Console.WriteLine(fishList.Count);
+                    else if (pet == "Cat")
+                        Console.WriteLine(catList.Count);
+                    else if (pet == "Dog")
+                        Console.WriteLine(dogList.Count);
+                    Console.ReadKey(true);
+                }
+                else break;
             }
         }
 

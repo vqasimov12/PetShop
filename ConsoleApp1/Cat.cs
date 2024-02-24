@@ -1,7 +1,9 @@
 ﻿namespace ConsoleApp1;
 public class Cat : Pet
 {
-    public Cat(string _nicKName, string _gender, double _age, int _energy, double _price) : base(_nicKName, _gender, _age, _energy, _price)
+    public static string[,] Meal = new string[3, 2];
+
+    public static void SetMeal()
     {
         Meal[0, 0] = "Fish";
         Meal[0, 1] = "0";
@@ -9,6 +11,10 @@ public class Cat : Pet
         Meal[1, 1] = "0";
         Meal[2, 0] = "Caviar";
         Meal[2, 1] = "0";
+    }
+    public Cat(string _nicKName, string _gender, double _age, int _energy, double _price) : base(_nicKName, _gender, _age, _energy, _price)
+    {
+        SetMeal();
     }
     public override void Eat()
     {
@@ -62,12 +68,12 @@ public class Cat : Pet
         Action("eating");
         Console.ReadKey(true);
     }
-    public override void BuyMeal()
+    public static void BuyMeal()
     {
         const int size = 4;
         string[] arr = new string[size] { "Fish => 1$", "Meat => 2$", "Caviar= 5$", "Exit" };
         string food = SelectFood(arr);
-        if (food == "Fish")
+        if (food == "Fish => 1$")
         {
             if (Budget >= 1)
             {
@@ -78,11 +84,11 @@ public class Cat : Pet
             }
             else
             {
-                Console.WriteLine("You don't have enough budget to buy this Meal ");
+                Console.WriteLine("You don't have enough budget to buy this Meal.\nYou can earn money by playing with pets or selling pets ");
                 Console.ReadKey(true);
             }
         }
-        else if (food == "Meat")
+        else if (food == "Meat => 2$")
         {
 
             if (Budget >= 2)
@@ -94,11 +100,11 @@ public class Cat : Pet
             }
             else
             {
-                Console.WriteLine("You don't have enough budget to buy this Meal ");
+                Console.WriteLine("You don't have enough budget to buy this Meal.\nYou can earn money by playing with pets or selling pets ");
                 Console.ReadKey(true);
             }
         }
-        else if (food == "Caviar")
+        else if (food == "Caviar= 5$")
         {
 
             if (Budget >= 5)
@@ -110,7 +116,7 @@ public class Cat : Pet
             }
             else
             {
-                Console.WriteLine("You don't have enough budget to buy this Meal ");
+                Console.WriteLine("You don't have enough budget to buy this Meal.\nYou can earn money by playing with pets or selling pets ");
                 Console.ReadKey(true);
             }
         }

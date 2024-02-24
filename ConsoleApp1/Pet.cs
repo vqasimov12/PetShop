@@ -2,7 +2,6 @@
 
 public abstract class Pet
 {
-    public string[,] Meal = new string[3, 2];
     public Pet(string _nickname, string _gender, double _age, int _energy, double _price)
     {
         Nickname = _nickname;
@@ -38,8 +37,7 @@ public abstract class Pet
         Age += 0.1;
         Action("Slepping");
     }
-    public abstract void BuyMeal();
-    protected void ShowFood(string[] arr, int select)
+    protected  static void ShowFood(string[] arr, int select)
     {
         for (int i = 0; i < arr.Length; i++)
         {
@@ -53,7 +51,7 @@ public abstract class Pet
                 Console.WriteLine(arr[i]);
         }
     }
-    protected string SelectFood(string[] arr)
+    protected static string SelectFood(string[] arr)
     {
         int select = 0;
         while (true)
