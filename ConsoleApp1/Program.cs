@@ -2,4 +2,3 @@
 Console.Title = "Pet Shop";
 Pet.Budget = 5;
 PetShop P = new();
-P.Menu();

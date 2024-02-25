@@ -54,7 +54,7 @@ public class PetShop
             }
 
             else if (key.Key == ConsoleKey.Escape)
-                return;
+                break;
 
             else if (key.Key == ConsoleKey.Enter)
             {
